@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Self-Employed Tax Deductions Tool | Teamwork LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243260;
+    --gold: #c9973b;
+    --gold-light: #f5e6cc;
+    --gold-lighter: #fdf7ee;
+    --slate: #4a5568;
+    --slate-light: #718096;
+    --border: #e2e8f0;
+    --bg: #f8f9fc;
+    --white: #ffffff;
+    --green: #276749;
+    --green-bg: #e6f4ed;
+    --red: #c53030;
+    --red-bg: #fff5f5;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(26,39,68,0.08);
+    --shadow-lg: 0 8px 32px rgba(26,39,68,0.13);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+  .logo-text span { color: var(--gold); }
+  .header-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    border: 1px solid rgba(201,151,59,0.4);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(201,151,59,0.07);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(201,151,59,0.05);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* ── Main layout ── */
+  .main-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ── Profession tabs ── */
+  .tabs-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    margin-bottom: 0.75rem;
+  }
+  .tabs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  .tab-btn {
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--slate);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .tab-btn:hover { border-color: var(--gold); color: var(--navy); }
+  .tab-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(26,39,68,0.25);
+  }
+  .tab-icon { font-size: 16px; }
+
+  /* ── Two-column layout ── */
+  .tool-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .tool-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--navy);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .card-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+  .card-body { padding: 0; }
+
+  /* ── Category groups ── */
+  .cat-group { border-bottom: 1px solid var(--border); }
+  .cat-group:last-child { border-bottom: none; }
+  .cat-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 13px 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gold-lighter);
+    transition: background 0.12s;
+  }
+  .cat-toggle:hover { background: var(--gold-light); }
+  .cat-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cat-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .cat-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .cat-total {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+  }
+  .cat-chevron {
+    font-size: 13px;
+    color: var(--slate-light);
+    transition: transform 0.2s;
+  }
+  .cat-chevron.open { transform: rotate(180deg); }
+
+  /* ── Deduction rows ── */
+  .deduction-rows { display: none; }
+  .deduction-rows.open { display: block; }
+
+  .ded-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 1.25rem 10px 3.2rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.1s;
+  }
+  .ded-row:last-child { border-bottom: none; }
+  .ded-row:hover { background: #f8faff; }
+
+  .ded-label {
+    font-size: 13px;
+    color: var(--navy);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+  .ded-hint {
+    font-size: 11px;
+    color: var(--slate-light);
+    margin-top: 2px;
+  }
+
+  .ded-input {
+    width: 110px;
+    padding: 6px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    text-align: right;
+    background: var(--white);
+    transition: border-color 0.15s;
+  }
+  .ded-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,151,59,0.12);
+  }
+  .ded-input::placeholder { color: #b0bec5; }
+
+  /* ── Notes field ── */
+  .notes-row {
+    padding: 10px 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .notes-row label { font-size: 11px; font-weight: 600; color: var(--slate-light); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .notes-row textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--navy);
+    resize: vertical;
+    min-height: 56px;
+    background: var(--white);
+  }
+  .notes-row textarea:focus { outline: none; border-color: var(--gold); }
+
+  /* ── Sidebar summary ── */
+  .summary-card .card-header { background: var(--gold); }
+  .summary-card .card-title { color: var(--navy); }
+  .summary-card .card-subtitle { color: rgba(26,39,68,0.65); }
+
+  .summary-body { padding: 1rem 1.25rem; }
+  .summary-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-stat:last-of-type { border-bottom: none; }
+  .sum-label { font-size: 13px; color: var(--slate); }
+  .sum-val { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .sum-val.big { font-size: 22px; color: var(--green); }
+
+  .grand-total-box {
+    margin-top: 1rem;
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .gt-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .gt-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ── Client info fields ── */
+  .client-fields {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .field-group { display: flex; flex-direction: column; gap: 4px; }
+  .field-group label { font-size: 11px; font-weight: 600; color: var(--slate-light); text-transform: uppercase; letter-spacing: 0.06em; }
+  .field-group input {
+    padding: 7px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--navy);
+    background: var(--white);
+  }
+  .field-group input:focus { outline: none; border-color: var(--gold); }
+
+  /* ── Buttons ── */
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.25rem; }
+  .btn-primary {
+    padding: 10px 20px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+  }
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-secondary {
+    padding: 10px 16px;
+    background: var(--white);
+    color: var(--slate);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+  }
+  .btn-secondary:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* ── IRS tip box ── */
+  .irs-tip {
+    margin-top: 1rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #1e40af;
+    line-height: 1.55;
+  }
+  .irs-tip strong { font-weight: 600; display: block; margin-bottom: 3px; }
+
+  /* ── Footer ── */
+  .site-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .site-footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── Print ── */
+  @media print {
+    .site-header, .tabs-row, .btn-row { display: none !important; }
+    .tool-layout { grid-template-columns: 1fr; }
+    .main-wrap { padding: 0; }
+  }
+
+  /* ── Animations ── */
+  .fade-in { animation: fadeIn 0.25s ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="logo" href="https://www.teamwork.llc">
+    <div class="logo-mark">T</div>
+    <span class="logo-text">Teamwork<span>.llc</span></span>
+  </a>
+  <div class="header-tag">Tax Tools</div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Free Client Resource &nbsp;·&nbsp; Tax Year 2025</div>
+  <h1>Self-Employed<br/><em>Deduction Tracker</em></h1>
+  <p>Select your profession, enter your expenses, and generate a clean summary for your tax preparer — right here, no downloads needed.</p>
+</div>
+
+<!-- Main -->
+<div class="main-wrap">
+
+  <!-- Profession tabs -->
+  <div class="tabs-label">Choose your profession</div>
+  <div class="tabs-row" id="tabsRow"></div>
+
+  <div class="tool-layout">
+
+    <!-- Left: deduction entry -->
+    <div>
+      <div class="card" id="mainCard">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="cardTitle">Freelancer / Consultant</div>
+            <div class="card-subtitle">Enter annual amounts — blue cells are editable</div>
+          </div>
+        </div>
+        <!-- Client info -->
+        <div class="client-fields">
+          <div class="field-group">
+            <label>Client / Taxpayer Name</label>
+            <input type="text" id="clientName" placeholder="Full name"/>
+          </div>
+          <div class="field-group">
+            <label>Tax Year</label>
+            <input type="text" id="taxYear" value="2025" style="width:90px"/>
+          </div>
+          <div class="field-group">
+            <label>Business / DBA Name</label>
+            <input type="text" id="bizName" placeholder="Optional"/>
+          </div>
+          <div class="field-group">
+            <label>Gross Annual Income ($)</label>
+            <input type="number" id="grossIncome" placeholder="0" oninput="updateSummary()"/>
+          </div>
+        </div>
+        <div class="card-body" id="deductionBody"></div>
+      </div>
+    </div>
+
+    <!-- Right: summary -->
+    <div style="position:sticky; top:80px;">
+      <div class="card summary-card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">&#9733; Deduction Summary</div>
+            <div class="card-subtitle" id="summaryProf">Freelancer / Consultant</div>
+          </div>
+        </div>
+        <div class="summary-body">
+          <div class="summary-stat">
+            <span class="sum-label">Gross Income</span>
+            <span class="sum-val" id="sumGross">$0</span>
+          </div>
+          <div id="catTotals"></div>
+          <div class="grand-total-box">
+            <span class="gt-label">Total Deductions</span>
+            <span class="gt-val" id="grandTotal">$0</span>
+          </div>
+          <div class="summary-stat" style="margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
+            <span class="sum-label">Est. Taxable Income</span>
+            <span class="sum-val big" id="taxableIncome">$0</span>
+          </div>
+          <div class="irs-tip">
+            <strong>📌 Reminder from your tax pro</strong>
+            Keep all receipts and records for at least 3 years. Mileage logs, bank statements, and invoices support every deduction claimed.
+          </div>
+          <div class="btn-row">
+            <button class="btn-primary" onclick="printSummary()">&#x1F5A8; Print / Save PDF</button>
+            <button class="btn-secondary" onclick="clearAll()">&#x21BA; Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  &copy; 2025 <a href="https://www.teamwork.llc">Teamwork LLC</a> &nbsp;&middot;&nbsp;
+  This tool is for informational purposes only and does not constitute tax advice.<br/>
+  Consult a licensed tax professional for guidance specific to your situation.
+</footer>
+
+<script>
+// ── Profession data ────────────────────────────────────────────────────────
+const professions = [
+  {
+    id: "freelancer",
+    label: "Freelancer / Consultant",
+    icon: "💻",
+    categories: [
+      {
+        name: "Home Office",
+        icon: "🏠",
+        items: [
+          { label: "Home office deduction (simplified method)", hint: "IRS: $5/sq ft, max 300 sq ft = $1,500 max" },
+          { label: "Home internet (business %)", hint: "Prorate by business use %" },
+          { label: "Business phone (business %)", hint: "Document business vs personal use" },
+          { label: "Office supplies & equipment", hint: "Pens, paper, printer ink, etc." },
+          { label: "Software & subscriptions", hint: "Adobe, Slack, Notion, Zoom, etc." },
+        ]
+      },
+      {
+        name: "Vehicle & Travel",
+        icon: "🚗",
+        items: [
+          { label: "Business mileage", hint: "2025 rate: 70¢/mile — keep a mileage log" },
+          { label: "Parking & tolls (business)", hint: "Keep all receipts" },
+          { label: "Airfare & lodging (business trips)", hint: "Must be primarily for business" },
+          { label: "Meals (business, 50% deductible)", hint: "Document who, what, why" },
+        ]
+      },
+      {
+        name: "Marketing & Professional",
+        icon: "📢",
+        items: [
+          { label: "Advertising & marketing", hint: "Google Ads, social ads, printed materials" },
+          { label: "Website hosting & domain", hint: "Fully deductible if business-only" },
+          { label: "Professional development & courses", hint: "Must relate to current business" },
+          { label: "Books & professional publications", hint: "Industry journals, business books" },
+          { label: "Professional memberships & dues", hint: "Associations, networking groups" },
+        ]
+      },
+      {
+        name: "Legal, Financial & Insurance",
+        icon: "⚖️",
+        items: [
+          { label: "Accounting & tax preparation fees", hint: "Including this service!" },
+          { label: "Legal fees (business-related)", hint: "Contract review, business formation" },
+          { label: "Business insurance premiums", hint: "E&O, general liability, cyber" },
+          { label: "Self-employed health insurance", hint: "100% deductible if not eligible for employer plan" },
+          { label: "Bank fees & merchant processing", hint: "PayPal, Stripe, Square fees" },
+        ]
+      },
+      {
+        name: "Retirement & SE Tax",
+        icon: "📊",
+        items: [
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax — auto-calculated on Sch SE" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "contractor",
+    label: "Contractor / Trades",
+    icon: "🏗️",
+    categories: [
+      {
+        name: "Tools & Equipment",
+        icon: "🔧",
+        items: [
+          { label: "Hand tools purchased", hint: "Hammers, drills, saws, etc." },
+          { label: "Power tools & equipment", hint: "Section 179 may allow full expensing" },
+          { label: "Tool repair & maintenance", hint: "Keep service receipts" },
+          { label: "Safety gear & PPE", hint: "Boots, gloves, hard hats, eye protection" },
+          { label: "Work clothing & uniforms (required)", hint: "Must not be suitable for everyday wear" },
+        ]
+      },
+      {
+        name: "Vehicle & Transportation",
+        icon: "🚚",
+        items: [
+          { label: "Business mileage (work truck/van)", hint: "2025 rate: 70¢/mile — keep a mileage log" },
+          { label: "Vehicle registration & insurance (business %)", hint: "Pro-rate if mixed use" },
+          { label: "Gas (if using actual expense method)", hint: "Choose mileage OR actual expenses, not both" },
+          { label: "Repairs & maintenance (business %)", hint: "Oil changes, tires, etc." },
+          { label: "Parking & tolls", hint: "All job-site parking is deductible" },
+        ]
+      },
+      {
+        name: "Job Materials & Supplies",
+        icon: "🪚",
+        items: [
+          { label: "Materials purchased for jobs", hint: "Lumber, pipe, wire, concrete, etc." },
+          { label: "Subcontractor payments (issue 1099s!)", hint: "Pay $600+ to a sub? File Form 1099-NEC" },
+          { label: "Dump fees & waste disposal", hint: "Fully deductible business expense" },
+          { label: "Rental equipment", hint: "Scissor lifts, excavators, etc." },
+        ]
+      },
+      {
+        name: "Business & Office",
+        icon: "📋",
+        items: [
+          { label: "Advertising (door hangers, website, ads)", hint: "Fully deductible" },
+          { label: "Business phone (business %)", hint: "Prorate if also personal use" },
+          { label: "Software (estimating, invoicing, scheduling)", hint: "Jobber, ServiceTitan, QuickBooks, etc." },
+          { label: "Licenses & permits", hint: "Contractor's license, trade permits" },
+          { label: "Business insurance (GL, workers comp)", hint: "Fully deductible" },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+        ]
+      },
+      {
+        name: "Retirement & Benefits",
+        icon: "💼",
+        items: [
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employed health insurance", hint: "100% deductible if eligible" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "medical",
+    label: "Medical / Therapy",
+    icon: "🏥",
+    categories: [
+      {
+        name: "Office & Practice Expenses",
+        icon: "🏢",
+        items: [
+          { label: "Office/clinic rent or lease", hint: "Rent paid for practice space" },
+          { label: "Utilities (practice-specific)", hint: "Electric, water, gas for office space" },
+          { label: "Medical supplies & equipment", hint: "Stethoscopes, therapy tools, PPE" },
+          { label: "Office supplies & furniture", hint: "Fully deductible for practice use" },
+          { label: "Electronic health records (EHR) software", hint: "Epic, SimplePractice, TherapyNotes, etc." },
+        ]
+      },
+      {
+        name: "Licensing & Continuing Education",
+        icon: "🎓",
+        items: [
+          { label: "State professional license fees", hint: "LCSW, MD, RN renewal fees" },
+          { label: "Board certification fees", hint: "Specialty board maintenance" },
+          { label: "CME / CEU courses", hint: "Required continuing education" },
+          { label: "Professional conferences & seminars", hint: "Registration, hotel, travel" },
+          { label: "Professional books & journals", hint: "DSM, medical references, etc." },
+        ]
+      },
+      {
+        name: "Malpractice & Insurance",
+        icon: "🛡️",
+        items: [
+          { label: "Malpractice / liability insurance", hint: "Fully deductible" },
+          { label: "Self-employed health insurance", hint: "100% deductible if eligible" },
+          { label: "Disability insurance (own occupation)", hint: "Deductible if business expense" },
+        ]
+      },
+      {
+        name: "Marketing & Professional",
+        icon: "📢",
+        items: [
+          { label: "Website & online presence", hint: "Psychology Today, Therapy Den listings" },
+          { label: "Business phone & secure messaging", hint: "HIPAA-compliant platforms" },
+          { label: "Professional association memberships", hint: "APA, NASW, AMA, specialty orgs" },
+          { label: "Supervision & consultation fees", hint: "Paid supervision is deductible" },
+          { label: "Advertising & referral marketing", hint: "Business cards, directory listings" },
+        ]
+      },
+      {
+        name: "Retirement & Tax",
+        icon: "📊",
+        items: [
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Accounting & tax preparation fees", hint: "Including this service!" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax" },
+          { label: "Student loan interest (if applicable)", hint: "Up to $2,500, income limits apply" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "realestate",
+    label: "Real Estate Agent",
+    icon: "🏘️",
+    categories: [
+      {
+        name: "Desk & Brokerage Fees",
+        icon: "🏢",
+        items: [
+          { label: "Brokerage desk fees / splits", hint: "Monthly desk fee paid to broker" },
+          { label: "MLS membership fees", hint: "Local, state, national MLS dues" },
+          { label: "NAR, state & local association dues", hint: "Professional membership fees" },
+          { label: "E&O insurance", hint: "Errors & omissions premium" },
+        ]
+      },
+      {
+        name: "Marketing & Listings",
+        icon: "📸",
+        items: [
+          { label: "Photography & videography", hint: "Listing photos, drone footage" },
+          { label: "Staging costs", hint: "Furniture rental, stager fees" },
+          { label: "Print marketing (flyers, mailers, signs)", hint: "Just listed postcards, yard signs" },
+          { label: "Digital advertising (Zillow, Google, Meta)", hint: "Keep receipts by platform" },
+          { label: "Open house expenses", hint: "Food, materials, lockboxes" },
+          { label: "Website & CRM software", hint: "KVCore, Follow Up Boss, IDX fees" },
+        ]
+      },
+      {
+        name: "Vehicle & Transportation",
+        icon: "🚗",
+        items: [
+          { label: "Business mileage (showing properties)", hint: "2025 rate: 70¢/mile — keep a detailed log" },
+          { label: "Parking & tolls", hint: "Client meetings, property visits" },
+          { label: "Vehicle registration & insurance (business %)", hint: "Pro-rate if mixed use" },
+        ]
+      },
+      {
+        name: "Professional Development",
+        icon: "🎓",
+        items: [
+          { label: "License renewal fees & CE courses", hint: "Required continuing education" },
+          { label: "Coaching & mentorship programs", hint: "Business coaching, mastermind groups" },
+          { label: "Books & training materials", hint: "Sales, negotiation, real estate specific" },
+          { label: "Real estate conferences & events", hint: "Travel, lodging, registration" },
+        ]
+      },
+      {
+        name: "Business & Admin",
+        icon: "📋",
+        items: [
+          { label: "Business phone (business %)", hint: "Prorate if also personal" },
+          { label: "Transaction coordination fees", hint: "TC services per transaction" },
+          { label: "Client gifts (up to $25 per client/year)", hint: "IRS limit: $25 per person annually" },
+          { label: "Meals with clients (50% deductible)", hint: "Document purpose, who attended" },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+          { label: "Business banking fees", hint: "Monthly fees, wire fees" },
+        ]
+      },
+      {
+        name: "Retirement & Benefits",
+        icon: "💼",
+        items: [
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employed health insurance", hint: "100% deductible if eligible" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "rideshare",
+    label: "Rideshare / Delivery",
+    icon: "🚗",
+    categories: [
+      {
+        name: "Vehicle Expenses",
+        icon: "🚗",
+        items: [
+          { label: "Business mileage (standard rate)", hint: "2025 rate: 70¢/mile — apps track this; export your log" },
+          { label: "Gas (if using actual expense method)", hint: "Choose ONE method: mileage OR actual expenses" },
+          { label: "Oil changes & routine maintenance (business %)", hint: "Pro-rate by business miles driven" },
+          { label: "Car repairs (business %)", hint: "Tires, brakes, etc. — pro-rate" },
+          { label: "Car insurance (business %)", hint: "Personal policy; pro-rate by business use" },
+          { label: "Car wash & cleaning", hint: "Keep it tidy for riders/customers!" },
+          { label: "Depreciation (if actual method)", hint: "Use Form 4562 — ask your tax pro" },
+        ]
+      },
+      {
+        name: "App & Platform Fees",
+        icon: "📱",
+        items: [
+          { label: "Uber / Lyft service fees withheld", hint: "Shown on your 1099-K or annual summary" },
+          { label: "DoorDash / Instacart activation fees", hint: "Background check, app fees" },
+          { label: "Insulated delivery bags & equipment", hint: "Hot bags, coolers, car mounts" },
+          { label: "Phone mount, dash cam", hint: "Safety & navigation equipment" },
+        ]
+      },
+      {
+        name: "Phone & Data",
+        icon: "📱",
+        items: [
+          { label: "Smartphone data plan (business %)", hint: "IRS expects reasonable % — typically 50–100%" },
+          { label: "Phone accessories (charger, power bank)", hint: "Needed for navigation & staying connected" },
+          { label: "GPS / navigation subscriptions", hint: "Waze, Google Maps, route optimizer apps" },
+        ]
+      },
+      {
+        name: "Business & Safety",
+        icon: "🛡️",
+        items: [
+          { label: "Rideshare / delivery business insurance", hint: "Gap coverage on top of personal policy" },
+          { label: "Parking fees (waiting for rides)", hint: "Documented parking while waiting" },
+          { label: "Tolls (business trips)", hint: "Keep EZPass or receipt records" },
+          { label: "First aid kit & safety supplies", hint: "Recommended for all drivers" },
+        ]
+      },
+      {
+        name: "Tax & Retirement",
+        icon: "📊",
+        items: [
+          { label: "Quarterly estimated taxes paid", hint: "IRS Form 1040-ES — avoid underpayment penalties" },
+          { label: "SEP-IRA contributions", hint: "Great option for gig workers with stable income" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax from gross income" },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "musician",
+    label: "Musician / Artist",
+    icon: "🎵",
+    categories: [
+      {
+        name: "Instruments & Gear",
+        icon: "🎸",
+        items: [
+          { label: "Instruments purchased", hint: "Guitars, keyboards, drums, horns — Section 179 may allow full expensing" },
+          { label: "Instrument repairs & maintenance", hint: "Restringing, tuning, restoration costs" },
+          { label: "Amplifiers, PA systems & speakers", hint: "Business use only or prorate mixed-use" },
+          { label: "Recording equipment (mics, interfaces, monitors)", hint: "Home studio gear — document business purpose" },
+          { label: "Music software & DAWs", hint: "Pro Tools, Logic, Ableton, Splice subscriptions" },
+          { label: "Cables, stands, cases & accessories", hint: "Consumable supplies fully deductible" },
+          { label: "Art supplies & materials", hint: "Canvas, paint, brushes, clay, printmaking supplies" },
+          { label: "Studio rental time", hint: "Recording sessions, rehearsal space rental" },
+        ]
+      },
+      {
+        name: "Performance & Touring",
+        icon: "🎤",
+        items: [
+          { label: "Performance venue fees & booking costs", hint: "Stage rental, booking agent commissions" },
+          { label: "Travel to/from gigs (mileage)", hint: "2025 rate: 70¢/mile — keep a gig log" },
+          { label: "Lodging for out-of-town performances", hint: "Hotel, Airbnb for touring/travel gigs" },
+          { label: "Airfare for performances or art shows", hint: "Must be primarily business-related" },
+          { label: "Meals on tour (50% deductible)", hint: "Document location, business purpose" },
+          { label: "Stage clothing & costumes", hint: "Must not be suitable for everyday wear to be deductible" },
+          { label: "Union dues (AFM, SAG-AFTRA, etc.)", hint: "Professional union membership fees" },
+        ]
+      },
+      {
+        name: "Recording & Distribution",
+        icon: "💿",
+        items: [
+          { label: "Music distribution fees", hint: "DistroKid, TuneCore, CD Baby annual fees" },
+          { label: "Mastering & mixing fees", hint: "Paid to engineers for final production" },
+          { label: "Music video production costs", hint: "Filming, editing, director fees" },
+          { label: "Physical media (CDs, vinyl, merch printing)", hint: "Merch sold = COGS; unsold = inventory" },
+          { label: "Sample clearances & licensing fees", hint: "Costs to legally clear samples used" },
+          { label: "Copyright registration fees", hint: "U.S. Copyright Office filing fees" },
+        ]
+      },
+      {
+        name: "Marketing & Promotion",
+        icon: "📢",
+        items: [
+          { label: "Website, EPK & online presence", hint: "Bandzcamp, Squarespace, Wix for artist sites" },
+          { label: "Social media advertising", hint: "Paid promotion on Instagram, TikTok, YouTube" },
+          { label: "Press kits & professional photos", hint: "Promotional materials for booking" },
+          { label: "PR & publicity fees", hint: "Music blogs, playlist pitching services" },
+          { label: "Gallery entry & exhibition fees", hint: "Art show submissions, booth fees" },
+          { label: "Agent & manager commissions", hint: "Typically 10–20% of gross — fully deductible" },
+        ]
+      },
+      {
+        name: "Education & Professional",
+        icon: "🎓",
+        items: [
+          { label: "Music lessons & coaching (business-related)", hint: "Skill development directly related to income" },
+          { label: "Online courses & masterclasses", hint: "MasterClass, Coursera, Skillshare for craft" },
+          { label: "Sheet music & scores", hint: "Materials used in professional work" },
+          { label: "Professional memberships & associations", hint: "ASCAP, BMI, SESAC, ArtTable, etc." },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+          { label: "Self-employed health insurance", hint: "100% deductible if not eligible for employer plan" },
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax from gross income" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "hairstylist",
+    label: "Hairstylist / Barber",
+    icon: "✂️",
+    categories: [
+      {
+        name: "Booth Rent & Salon Expenses",
+        icon: "🏢",
+        items: [
+          { label: "Booth rent paid to salon owner", hint: "Weekly or monthly booth rental — fully deductible" },
+          { label: "Salon utilities (if responsible)", hint: "Electric, water, gas if in your booth agreement" },
+          { label: "Salon insurance (liability)", hint: "General liability for your booth or suite" },
+          { label: "Salon suite rent (if renting own suite)", hint: "Full rent for your independent studio" },
+          { label: "Cleaning supplies for station/suite", hint: "Disinfectants, towels, sanitation products" },
+        ]
+      },
+      {
+        name: "Tools & Equipment",
+        icon: "✂️",
+        items: [
+          { label: "Clippers, trimmers & blades", hint: "Wahl, Andis, Oster — fully deductible" },
+          { label: "Shears, razors & combs", hint: "Professional styling tools" },
+          { label: "Hair dryers, flat irons & curling irons", hint: "Heat styling tools for clients" },
+          { label: "Barber/styling chair (if owned)", hint: "May qualify for Section 179 full expensing" },
+          { label: "Shampoo bowls & salon furniture", hint: "Equipment purchased for your space" },
+          { label: "Tool maintenance & sharpening", hint: "Clipper repair, blade sharpening services" },
+        ]
+      },
+      {
+        name: "Products & Supplies",
+        icon: "🧴",
+        items: [
+          { label: "Hair color, developer & bleach", hint: "Cost of goods used on clients — track carefully" },
+          { label: "Shampoos, conditioners & treatments", hint: "Products used in services" },
+          { label: "Styling products (gels, sprays, waxes)", hint: "Used for client services" },
+          { label: "Retail products purchased for resale", hint: "Products you sell to clients — track as COGS" },
+          { label: "Disposables (capes, gloves, foils, razors)", hint: "Single-use sanitation supplies" },
+          { label: "Towels, robes & linens", hint: "Client-use salon textiles" },
+        ]
+      },
+      {
+        name: "Licensing & Education",
+        icon: "🎓",
+        items: [
+          { label: "Cosmetology / barber license renewal", hint: "State license fees — fully deductible" },
+          { label: "Continuing education & classes", hint: "Color certifications, cutting techniques" },
+          { label: "Hair shows & industry events", hint: "Registration, travel, lodging" },
+          { label: "Professional books & training materials", hint: "Technique books, style guides" },
+          { label: "Platform artist / brand education", hint: "Paid brand training events" },
+        ]
+      },
+      {
+        name: "Marketing & Business",
+        icon: "📢",
+        items: [
+          { label: "Website & booking software", hint: "StyleSeat, Square Appointments, Vagaro fees" },
+          { label: "Social media advertising", hint: "Instagram/Facebook ads to attract clients" },
+          { label: "Business cards & promotional materials", hint: "Print marketing for new clients" },
+          { label: "Business phone (business %)", hint: "Client calls, booking texts — prorate if personal too" },
+          { label: "Client gifts & referral rewards", hint: "Up to $25 per client per year deductible" },
+          { label: "Uniforms & required work clothing", hint: "Branded aprons, required attire — must not be everyday wear" },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+        ]
+      },
+      {
+        name: "Vehicle & Retirement",
+        icon: "📊",
+        items: [
+          { label: "Business mileage (supply runs, education)", hint: "2025 rate: 70¢/mile — keep a log" },
+          { label: "Self-employed health insurance", hint: "100% deductible if not eligible for employer plan" },
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax from gross income" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "landscaper",
+    label: "Landscaper",
+    icon: "🌿",
+    categories: [
+      {
+        name: "Equipment & Tools",
+        icon: "🔧",
+        items: [
+          { label: "Lawn mowers (riding & push)", hint: "Section 179 may allow full expensing in year of purchase" },
+          { label: "Trimmers, edgers & blowers", hint: "String trimmers, leaf blowers, edgers" },
+          { label: "Chainsaws & pole saws", hint: "Tree trimming and removal equipment" },
+          { label: "Hand tools (rakes, shovels, pruners)", hint: "Fully deductible as supplies" },
+          { label: "Irrigation & sprinkler tools", hint: "Installation and repair equipment" },
+          { label: "Equipment repairs & maintenance", hint: "Blade sharpening, tune-ups, part replacements" },
+          { label: "Equipment rental", hint: "Skid steers, aerators, stump grinders rented per job" },
+          { label: "Safety gear & PPE", hint: "Gloves, goggles, ear protection, steel-toed boots" },
+        ]
+      },
+      {
+        name: "Vehicle & Trailer",
+        icon: "🚚",
+        items: [
+          { label: "Business mileage (truck/van)", hint: "2025 rate: 70¢/mile — keep a job-by-job log" },
+          { label: "Truck/van gas (if using actual method)", hint: "Choose mileage OR actual — not both" },
+          { label: "Truck repairs & maintenance (business %)", hint: "Oil, tires, brakes — pro-rate if mixed use" },
+          { label: "Vehicle registration & insurance (business %)", hint: "Prorate personal vs. business use" },
+          { label: "Trailer purchase or payments", hint: "Equipment trailers — Section 179 eligible" },
+          { label: "Trailer registration & insurance", hint: "Fully deductible if business-only" },
+          { label: "Parking & tolls on job routes", hint: "Keep receipts or use GPS app records" },
+        ]
+      },
+      {
+        name: "Materials & Supplies",
+        icon: "🌱",
+        items: [
+          { label: "Plants, shrubs, trees & sod", hint: "Materials purchased for client jobs (COGS)" },
+          { label: "Mulch, topsoil, gravel & rock", hint: "Landscaping materials billed to clients" },
+          { label: "Fertilizer, herbicides & pesticides", hint: "Applicator license may be required — track separately" },
+          { label: "Seeds & grass", hint: "Seeding and overseeding materials" },
+          { label: "Irrigation parts & supplies", hint: "Pipe, heads, valves, timers" },
+          { label: "Hardscaping materials (pavers, edging)", hint: "Brick, concrete, landscape timbers" },
+          { label: "Fuel for equipment", hint: "Gas cans, mixed fuel for 2-stroke engines" },
+        ]
+      },
+      {
+        name: "Labor & Subcontractors",
+        icon: "👷",
+        items: [
+          { label: "Subcontractor payments (issue 1099s!)", hint: "Pay $600+ to a sub? File Form 1099-NEC by Jan 31" },
+          { label: "Seasonal employee wages (W-2)", hint: "Payroll — also deduct payroll taxes paid" },
+          { label: "Workers' compensation insurance", hint: "Required in most states if you have employees" },
+          { label: "Payroll processing fees", hint: "Gusto, ADP, QuickBooks Payroll fees" },
+        ]
+      },
+      {
+        name: "Business & Admin",
+        icon: "📋",
+        items: [
+          { label: "Business insurance (GL, property)", hint: "General liability protects you on client property" },
+          { label: "Pesticide applicator license & renewal", hint: "State-required licenses and fees" },
+          { label: "Advertising (yard signs, mailers, website)", hint: "Angi, Google Local Services, Nextdoor ads" },
+          { label: "Business phone (business %)", hint: "Client scheduling, job coordination" },
+          { label: "Software (job scheduling, invoicing)", hint: "Jobber, LawnPro, Housecall Pro subscriptions" },
+          { label: "Uniforms & work clothing (required)", hint: "Branded shirts, required work attire" },
+          { label: "Storage unit for equipment", hint: "Monthly rental for equipment storage" },
+          { label: "Accounting & tax prep fees", hint: "Including this service!" },
+        ]
+      },
+      {
+        name: "Retirement & Benefits",
+        icon: "📊",
+        items: [
+          { label: "SEP-IRA or Solo 401(k) contributions", hint: "Up to 25% of net self-employment income" },
+          { label: "Self-employed health insurance", hint: "100% deductible if not eligible for employer plan" },
+          { label: "Self-employment tax deduction (50%)", hint: "Deduct half of SE tax from gross income" },
+          { label: "Quarterly estimated taxes paid", hint: "IRS Form 1040-ES — landscaping income fluctuates seasonally" },
+        ]
+      }
+    ]
+  }
+];
+
+// ── State ────────────────────────────────────────────────────────────────────
+let currentProf = professions[0];
+let values = {}; // { profId_catIdx_itemIdx: amount }
+let openCats = {};
+
+function key(profId, catI, itemI) { return `${profId}_${catI}_${itemI}`; }
+
+// ── Build tabs ───────────────────────────────────────────────────────────────
+function buildTabs() {
+  const row = document.getElementById("tabsRow");
+  professions.forEach(p => {
+    const btn = document.createElement("button");
+    btn.className = "tab-btn" + (p.id === currentProf.id ? " active" : "");
+    btn.innerHTML = `<span class="tab-icon">${p.icon}</span>${p.label}`;
+    btn.onclick = () => switchProf(p);
+    btn.dataset.profId = p.id;
+    row.appendChild(btn);
+  });
+}
+
+function switchProf(p) {
+  currentProf = p;
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.profId === p.id);
+  });
+  document.getElementById("cardTitle").textContent = p.label;
+  document.getElementById("summaryProf").textContent = p.label;
+  buildDeductions();
+  updateSummary();
+}
+
+// ── Build deduction rows ─────────────────────────────────────────────────────
+function buildDeductions() {
+  const body = document.getElementById("deductionBody");
+  body.innerHTML = "";
+
+  currentProf.categories.forEach((cat, catI) => {
+    const group = document.createElement("div");
+    group.className = "cat-group fade-in";
+
+    const isOpen = openCats[`${currentProf.id}_${catI}`] !== false;
+
+    // Toggle header
+    const toggle = document.createElement("button");
+    toggle.className = "cat-toggle";
+    toggle.innerHTML = `
+      <div class="cat-left">
+        <div class="cat-icon">${cat.icon}</div>
+        <span class="cat-name">${cat.name}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="cat-total" id="catTotal_${catI}">$0</span>
+        <span class="cat-chevron ${isOpen ? "open" : ""}" id="chev_${catI}">▼</span>
+      </div>`;
+    toggle.onclick = () => {
+      const rows = document.getElementById(`rows_${catI}`);
+      const chev = document.getElementById(`chev_${catI}`);
+      const nowOpen = rows.classList.toggle("open");
+      openCats[`${currentProf.id}_${catI}`] = nowOpen;
+      chev.classList.toggle("open", nowOpen);
+    };
+    group.appendChild(toggle);
+
+    // Item rows
+    const rows = document.createElement("div");
+    rows.className = "deduction-rows" + (isOpen ? " open" : "");
+    rows.id = `rows_${catI}`;
+
+    cat.items.forEach((item, itemI) => {
+      const k = key(currentProf.id, catI, itemI);
+      const row = document.createElement("div");
+      row.className = "ded-row";
+      row.innerHTML = `
+        <div class="ded-label">
+          ${item.label}
+          <div class="ded-hint">${item.hint}</div>
+        </div>
+        <input class="ded-input" type="number" min="0" step="0.01"
+          placeholder="$0.00"
+          value="${values[k] || ""}"
+          data-key="${k}" data-cat="${catI}"
+          oninput="onInput(this)"/>`;
+      rows.appendChild(row);
+    });
+
+    // Notes field per category
+    const noteRow = document.createElement("div");
+    noteRow.className = "notes-row";
+    noteRow.innerHTML = `
+      <label>Notes for this category</label>
+      <textarea placeholder="Add any notes, mileage logs, details…" id="note_${currentProf.id}_${catI}"></textarea>`;
+    rows.appendChild(noteRow);
+
+    group.appendChild(rows);
+    body.appendChild(group);
+  });
+}
+
+function onInput(el) {
+  const k = el.dataset.key;
+  const v = parseFloat(el.value) || 0;
+  values[k] = v;
+  const catI = parseInt(el.dataset.cat);
+  updateCatTotal(catI);
+  updateSummary();
+}
+
+function updateCatTotal(catI) {
+  const cat = currentProf.categories[catI];
+  let sum = 0;
+  cat.items.forEach((_, itemI) => {
+    sum += values[key(currentProf.id, catI, itemI)] || 0;
+  });
+  const el = document.getElementById(`catTotal_${catI}`);
+  if (el) el.textContent = fmt(sum);
+}
+
+function fmt(n) {
+  return n === 0 ? "$0" : "$" + n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+// ── Summary ─────────────────────────────────────────────────────────────────
+function updateSummary() {
+  const gross = parseFloat(document.getElementById("grossIncome").value) || 0;
+  document.getElementById("sumGross").textContent = fmt(gross);
+
+  let grandTotal = 0;
+  const catEl = document.getElementById("catTotals");
+  catEl.innerHTML = "";
+
+  currentProf.categories.forEach((cat, catI) => {
+    let sum = 0;
+    cat.items.forEach((_, itemI) => {
+      sum += values[key(currentProf.id, catI, itemI)] || 0;
+    });
+    grandTotal += sum;
+    if (sum > 0) {
+      const row = document.createElement("div");
+      row.className = "summary-stat";
+      row.innerHTML = `<span class="sum-label">${cat.icon} ${cat.name}</span><span class="sum-val">${fmt(sum)}</span>`;
+      catEl.appendChild(row);
+    }
+  });
+
+  document.getElementById("grandTotal").textContent = fmt(grandTotal);
+  const taxable = Math.max(0, gross - grandTotal);
+  document.getElementById("taxableIncome").textContent = fmt(taxable);
+}
+
+function clearAll() {
+  if (!confirm("Clear all entered amounts for this profession?")) return;
+  currentProf.categories.forEach((cat, catI) => {
+    cat.items.forEach((_, itemI) => {
+      const k = key(currentProf.id, catI, itemI);
+      values[k] = 0;
+    });
+  });
+  buildDeductions();
+  updateSummary();
+}
+
+function printSummary() { window.print(); }
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+buildTabs();
+buildDeductions();
+updateSummary();
+
+// open first cat by default
+professions.forEach(p => { openCats[`${p.id}_0`] = true; });
+</script>
+</body>
+</html>
