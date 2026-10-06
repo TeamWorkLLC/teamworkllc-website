@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request a website quote | TeamWork LLC</title>
+<meta name="description" content="Tell TeamWork LLC about the website you need and get a quote.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #5b2d8e;
+    --purple-deep: #3f1d66;
+    --green: #3a8c2f;
+    --green-deep: #2c6d23;
+    --ink: #1f1a26;
+    --muted: #5d5568;
+    --line: #d9d0e4;
+    --wash: #f7f4fb;
+    --paper: #ffffff;
+    --error: #a3231f;
+    --display: "Bricolage Grotesque", "Trebuchet MS", Verdana, sans-serif;
+    --body: "Atkinson Hyperlegible", Verdana, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--wash);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  /* Header band */
+  .masthead {
+    background: var(--purple);
+    color: #fff;
+    padding: 2.5rem 1.25rem 5.5rem;
+  }
+  .masthead-inner, .sheet, .site-foot { max-width: 41rem; margin: 0 auto; }
+  .brand {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+  }
+  .masthead h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.1rem, 7vw, 3.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 1.75rem 0 0.9rem;
+    max-width: 14em;
+  }
+  .masthead p { margin: 0; max-width: 34em; color: #ece3f7; }
+
+  /* Form sheet overlaps the band */
+  .sheet {
+    background: var(--paper);
+    border-radius: 14px;
+    border-top: 6px solid var(--green);
+    box-shadow: 0 18px 40px -24px rgba(63, 29, 102, 0.55);
+    margin-top: -3.5rem;
+    padding: 2rem 1.5rem 2.25rem;
+  }
+  .wrap { padding: 0 1rem 3rem; }
+
+  fieldset { border: 0; margin: 0 0 2.25rem; padding: 0; min-width: 0; }
+  legend {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: var(--purple-deep);
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  .field { margin-bottom: 1.15rem; }
+  .pair { display: grid; gap: 0 1rem; }
+  label, .q { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+  .hint { display: block; font-weight: 400; color: var(--muted); font-size: 0.95rem; }
+  .req { color: var(--error); }
+
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], select, textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    padding: 0.7rem 0.8rem;
+  }
+  textarea { min-height: 6.5rem; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 3px solid var(--green);
+    outline-offset: 2px;
+    border-color: var(--purple);
+  }
+  [aria-invalid="true"] { border-color: var(--error); }
+  .err { color: var(--error); font-size: 0.95rem; margin-top: 0.3rem; }
+  .err:empty { display: none; }
+
+  /* Pill choices (radios and checkboxes) */
+  .choices { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .choice { position: relative; margin: 0; font-weight: 400; }
+  .choice input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .choice span {
+    display: block;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    background: #fff;
+  }
+  .choice input:checked + span {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+    font-weight: 700;
+  }
+  .choice input:focus-visible + span { outline: 3px solid var(--green); outline-offset: 2px; }
+
+  .trap { position: absolute; left: -9999px; }
+
+  .send {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    background: var(--green);
+    border: 0;
+    border-radius: 10px;
+    padding: 0.95rem 1.6rem;
+    width: 100%;
+    cursor: pointer;
+  }
+  .send:hover { background: var(--green-deep); }
+  .send[disabled] { opacity: 0.6; cursor: wait; }
+  .fine { color: var(--muted); font-size: 0.95rem; margin: 0.9rem 0 0; }
+
+  .notice {
+    border-left: 6px solid var(--green);
+    background: #eef6ec;
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    margin-top: 1.25rem;
+  }
+  .notice.problem { border-color: var(--error); background: #fbeceb; }
+  .notice h2 { font-family: var(--display); font-size: 1.25rem; margin: 0 0 0.3rem; }
+  .notice p { margin: 0; }
+  [hidden] { display: none !important; }
+
+  .site-foot { padding: 0 1.25rem 3rem; color: var(--muted); font-size: 0.95rem; }
+  .site-foot strong { color: var(--purple-deep); font-family: var(--display); font-size: 1.05rem; }
+  .site-foot a { color: var(--purple); }
+
+  @media (min-width: 36rem) {
+    .sheet { padding: 2.5rem 2.5rem 2.75rem; }
+    .pair { grid-template-columns: 1fr 1fr; }
+    .send { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="https://www.teamwork.llc">TeamWork LLC</a>
+    <h1>Tell us about the website you need</h1>
+    <p>Answer a few questions and we'll reply within two business days with next steps and a price range. It takes about three minutes.</p>
+  </div>
+</header>
+
+<div class="wrap">
+<main class="sheet">
+  <form id="quote-form" novalidate>
+
+    <fieldset>
+      <legend>How to reach you</legend>
+      <div class="pair">
+        <div class="field">
+          <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-err">
+          <div class="err" id="name-err" role="alert"></div>
+        </div>
+        <div class="field">
+          <label for="business">Business or organization</label>
+          <input type="text" id="business" name="business" autocomplete="organization">
+        </div>
+      </div>
+      <div class="pair">
+        <div class="field">
+          <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-err">
+          <div class="err" id="email-err" role="alert"></div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+      </div>
+      <div class="field">
+        <span class="q" id="contact-q">Best way to reach you</span>
+        <div class="choices" role="radiogroup" aria-labelledby="contact-q">
+          <label class="choice"><input type="radio" name="contact_method" value="Email"><span>Email</span></label>
+          <label class="choice"><input type="radio" name="contact_method" value="Call"><span>Call</span></label>
+          <label class="choice"><input type="radio" name="contact_method" value="Text"><span>Text</span></label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>About your website</legend>
+      <div class="field">
+        <label for="about">What does your business or organization do?</label>
+        <textarea id="about" name="about"></textarea>
+      </div>
+      <div class="field">
+        <span class="q" id="have-q">Do you have a website now?</span>
+        <div class="choices" role="radiogroup" aria-labelledby="have-q">
+          <label class="choice"><input type="radio" name="has_site" value="No, this is my first"><span>No, this is my first</span></label>
+          <label class="choice"><input type="radio" name="has_site" value="Yes, redesign it"><span>Yes, redesign it</span></label>
+          <label class="choice"><input type="radio" name="has_site" value="Yes, add to it"><span>Yes, add to it</span></label>
+        </div>
+      </div>
+      <div class="field" id="url-field" hidden>
+        <label for="current_url">Current website address</label>
+        <input type="text" id="current_url" name="current_url" inputmode="url" placeholder="www.example.com">
+      </div>
+      <div class="field">
+        <span class="q" id="goal-q">What should visitors be able to do? <span class="hint">Choose all that apply.</span></span>
+        <div class="choices" role="group" aria-labelledby="goal-q">
+          <label class="choice"><input type="checkbox" name="goals" value="Call or email me"><span>Call or email me</span></label>
+          <label class="choice"><input type="checkbox" name="goals" value="Book an appointment"><span>Book an appointment</span></label>
+          <label class="choice"><input type="checkbox" name="goals" value="Buy online"><span>Buy online</span></label>
+          <label class="choice"><input type="checkbox" name="goals" value="Give or donate online"><span>Give or donate online</span></label>
+          <label class="choice"><input type="checkbox" name="goals" value="Request a quote"><span>Request a quote</span></label>
+          <label class="choice"><input type="checkbox" name="goals" value="Learn about us"><span>Learn about us</span></label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Timing and budget</legend>
+      <div class="field">
+        <label for="timeline">When do you want the site live?</label>
+        <select id="timeline" name="timeline">
+          <option value="">Choose one</option>
+          <option>Within a month</option>
+          <option>In 1 to 3 months</option>
+          <option>In 3 to 6 months</option>
+          <option>No set date</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="q" id="budget-q">Budget for building the site <span class="hint">An honest range helps us recommend the right package.</span></span>
+        <div class="choices" role="radiogroup" aria-labelledby="budget-q">
+          <label class="choice"><input type="radio" name="budget" value="Under $500"><span>Under $500</span></label>
+          <label class="choice"><input type="radio" name="budget" value="$500 to $1,000"><span>$500 to $1,000</span></label>
+          <label class="choice"><input type="radio" name="budget" value="$1,000 to $2,500"><span>$1,000 to $2,500</span></label>
+          <label class="choice"><input type="radio" name="budget" value="$2,500 to $5,000"><span>$2,500 to $5,000</span></label>
+          <label class="choice"><input type="radio" name="budget" value="Over $5,000"><span>Over $5,000</span></label>
+          <label class="choice"><input type="radio" name="budget" value="Not sure, please advise"><span>Not sure, please advise</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="notes">Anything else we should know?</label>
+        <textarea id="notes" name="notes"></textarea>
+      </div>
+    </fieldset>
+
+    <div class="trap" aria-hidden="true">
+      <label for="website_confirm">Leave this blank</label>
+      <input type="text" id="website_confirm" name="website_confirm" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button type="submit" class="send" id="send">Send my request</button>
+    <p class="fine">We use your answers only to prepare your quote.</p>
+
+    <div class="notice" id="sent" role="status" hidden>
+      <h2>Request sent</h2>
+      <p>Thank you. We'll reply within two business days.</p>
+    </div>
+    <div class="notice" id="email-opened" role="status" hidden>
+      <h2>One more step</h2>
+      <p>Your email app should have opened with your answers filled in. Press send there to finish. If nothing opened, email <a href="mailto:getitdonetracey@teamwork.llc">getitdonetracey@teamwork.llc</a>.</p>
+    </div>
+    <div class="notice problem" id="failed" role="alert" hidden>
+      <h2>Your request did not send</h2>
+      <p>Check your connection and press Send my request again, or email <a href="mailto:getitdonetracey@teamwork.llc">getitdonetracey@teamwork.llc</a>.</p>
+    </div>
+  </form>
+</main>
+</div>
+
+<footer class="site-foot">
+  <strong>Success takes TeamWork!!!</strong><br>
+  TeamWork LLC, Birmingham, Alabama. <a href="mailto:getitdonetracey@teamwork.llc">getitdonetracey@teamwork.llc</a>
+</footer>
+
+<script>
+  // ---- SETTINGS ----------------------------------------------------------
+  // Paste your form service address between the quotes (for example a
+  // Formspree or Web3Forms endpoint). Leave it empty and the form will
+  // open the visitor's email app with their answers filled in instead.
+  var FORM_ENDPOINT = "";
+  var SEND_TO = "getitdonetracey@teamwork.llc";
+  // ------------------------------------------------------------------------
+
+  var form = document.getElementById("quote-form");
+  var sendBtn = document.getElementById("send");
+  var urlField = document.getElementById("url-field");
+
+  form.querySelectorAll('input[name="has_site"]').forEach(function (r) {
+    r.addEventListener("change", function () {
+      urlField.hidden = r.value.indexOf("Yes") !== 0;
+    });
+  });
+
+  function setError(id, msg) {
+    var input = document.getElementById(id);
+    document.getElementById(id + "-err").textContent = msg;
+    if (msg) { input.setAttribute("aria-invalid", "true"); }
+    else { input.removeAttribute("aria-invalid"); }
+    return !msg;
+  }
+
+  function validate() {
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+    var okName = setError("name", name ? "" : "Enter your name so we know who to reply to.");
+    var okEmail = setError("email",
+      !email ? "Enter your email so we can send your quote."
+      : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? ""
+      : "That email looks incomplete. Check for a missing @ or ending.");
+    if (!okName) { form.name.focus(); }
+    else if (!okEmail) { form.email.focus(); }
+    return okName && okEmail;
+  }
+
+  function collect() {
+    var fd = new FormData(form);
+    return {
+      "Name": fd.get("name") || "",
+      "Business": fd.get("business") || "",
+      "Email": fd.get("email") || "",
+      "Phone": fd.get("phone") || "",
+      "Best way to reach": fd.get("contact_method") || "",
+      "What they do": fd.get("about") || "",
+      "Has a website now": fd.get("has_site") || "",
+      "Current website": fd.get("current_url") || "",
+      "Visitor goals": fd.getAll("goals").join(", "),
+      "Timeline": fd.get("timeline") || "",
+      "Budget": fd.get("budget") || "",
+      "Notes": fd.get("notes") || ""
+    };
+  }
+
+  function show(id) {
+    ["sent", "email-opened", "failed"].forEach(function (n) {
+      document.getElementById(n).hidden = n !== id;
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (form.website_confirm.value) { return; }   // spam trap
+    if (!validate()) { return; }
+    var data = collect();
+
+    if (!FORM_ENDPOINT) {
+      var lines = Object.keys(data).map(function (k) { return k + ": " + data[k]; });
+      window.location.href = "mailto:" + SEND_TO +
+        "?subject=" + encodeURIComponent("Website quote request from " + data["Name"]) +
+        "&body=" + encodeURIComponent(lines.join("\n"));
+      show("email-opened");
+      return;
+    }
+
+    sendBtn.disabled = true;
+    data._subject = "Website quote request from " + data["Name"];
+    fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(function (res) {
+      if (!res.ok) { throw new Error("send failed"); }
+      form.reset();
+      urlField.hidden = true;
+      show("sent");
+    }).catch(function () {
+      show("failed");
+    }).then(function () {
+      sendBtn.disabled = false;
+    });
+  });
+</script>
+</body>
+</html>
